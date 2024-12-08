@@ -1,0 +1,6 @@
+VERSION 0.8
+
+# Build a custom base image for Go development
+FROM golang:1.23-alpine
+RUN apk add --no-cache bash curl
+SAVE IMAGE my-registry/my-golang-base:1.23
