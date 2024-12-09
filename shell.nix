@@ -17,6 +17,7 @@ pkgs.mkShell {
     # CICD
     # pkgs.docker
     pkgs.earthly
+    pkgs.goreleaser
 
     # node
     pkgs.nodejs # Provides Node.js and npm

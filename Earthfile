@@ -5,6 +5,11 @@ VERSION 0.8
 FROM golang:1.23-alpine
 WORKDIR /go-example
 
+ARG EARTHLY_TARGET
+RUN echo "The current target is $EARTHLY_TARGET"
+RUN echo "build-sha: $EARTHLY_BUILD_SHA"
+RUN echo "tag_docker: $EARTHLY_TARGET_TAG_DOCKER"
+
 
 deps:
     # FROM base

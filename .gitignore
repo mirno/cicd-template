@@ -10,3 +10,5 @@ coverage*
 
 # Ignore compiled binaries
 bin/
+
+dist/
