@@ -16,12 +16,28 @@ pkgs.mkShell {
 
     # CICD
     # pkgs.docker
+    pkgs.git
     pkgs.earthly
     pkgs.goreleaser
+    pkgs.go-task
+    pkgs.gofumpt
+
+    # Linters
+    pkgs.golangci-lint
+    pkgs.editorconfig-checker
+    pkgs.typos
+    pkgs.plantuml
+    pkgs.yamllint
+
+    pkgs.gotests
+    pkgs.gotools
+    pkgs.gopls
+    pkgs.go-secdump
 
     # node
     pkgs.nodejs # Provides Node.js and npm
 
+    # dev
     pkgs.firefox-devedition
 
   ];
