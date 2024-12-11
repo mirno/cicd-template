@@ -5,11 +5,6 @@ VERSION 0.8
 FROM golang:1.23-alpine
 WORKDIR /go-example
 
-ARG EARTHLY_TARGET
-RUN echo "The current target is $EARTHLY_TARGET"
-RUN echo "build-sha: $EARTHLY_BUILD_SHA"
-RUN echo "tag_docker: $EARTHLY_TARGET_TAG_DOCKER"
-
 
 deps:
     # FROM base
@@ -23,6 +18,16 @@ test:
     COPY . .
     RUN go test ./...
 
+verify:
+    ARG registry
+    RUN echo "registry: $registry"
+    ARG buildversion
+    ARG binaryDefault
+    ARG dockerbin
+    RUN echo "buildversion: $buildversion"
+    RUN echo "------"
+
+
 build:
     FROM +deps
     COPY . .
@@ -35,11 +40,12 @@ docker:
     FROM +build
     # WORKDIR /go-example
     ARG buildversion
+    ARG registry
 
-    COPY +build/go-example-$buildversion ./dockerbin
+    COPY +build/go-example-$buildversion ./go-example
     COPY static ./static
-    ENTRYPOINT ["./dockerbin"]
-    SAVE IMAGE --push earthly/examples:go
+    ENTRYPOINT ["./go-example"]
+    SAVE IMAGE --push $registry/earthly/examples:$buildversion
 
 docker-test:
     FROM earthly/examples:go

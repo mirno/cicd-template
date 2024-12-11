@@ -4,6 +4,7 @@
 # Ignore environment files
 .envrc
 .env.local
+.env
 
 # ignore coverage
 coverage*
@@ -12,3 +13,6 @@ coverage*
 bin/
 
 dist/
+
+# Ignore earthly ...
+.arg
