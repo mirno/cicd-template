@@ -32,7 +32,7 @@ pkgs.mkShell {
     pkgs.gotests
     pkgs.gotools
     pkgs.gopls
-    pkgs.go-secdump
+    pkgs.gosec
 
     # node
     pkgs.nodejs # Provides Node.js and npm
