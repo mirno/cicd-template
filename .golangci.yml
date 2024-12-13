@@ -1,0 +1,97 @@
+run:
+  allow-parallel-runners: false
+  allow-serial-runners: false
+  modules-download-mode: readonly
+  timeout: 10m
+output:
+  print-issued-lines: true
+  print-linter-name: true
+  uniq-by-line: true
+  show-stats: true
+  sort-results: true
+  sort-order:
+    - linter
+    - severity
+    - file
+  formats:
+    # - format: json
+    #   path: stderr
+    - format: colored-line-number
+      path: stdout
+    - format: checkstyle
+      path: report.xml
+linters:
+  disable:
+    - exhaustruct # Annoying
+    - exportloopref
+    - gomnd
+    - execinquery
+  enable-all: true
+linters-settings:
+  gocyclo:
+    min-complexity: 15
+  cyclop:
+    # The maximal code complexity to report.
+    # Default: 10
+    max-complexity: 15
+    # The maximal average package complexity.
+    # If it's higher than 0.0 (float) the check is enabled
+    # Default: 0.0
+    package-average: 5
+    # Should ignore tests.
+    # Default: false
+    skip-tests: false
+  gofmt:
+    # Simplify code: gofmt with `-s` option.
+    # Default: true
+    simplify: true
+    # Apply the rewrite rules to the source before reformatting.
+    # https://pkg.go.dev/cmd/gofmt
+    # Default: []
+    rewrite-rules:
+      - pattern: 'interface{}'
+        replacement: 'any'
+      - pattern: 'a[b:len(a)]'
+        replacement: 'a[b:]'
+  gofumpt:
+    # Module path which contains the source code being formatted.
+    # Default: ""
+    module-path: github.com/mirno/cicd-template
+    # Choose whether to use the extra rules.
+    # Default: false
+    extra-rules: true
+  lll:
+    # Max line length, lines longer will be reported.
+    # '\t' is counted as 1 character by default, and can be changed with the tab-width option.
+    # Default: 120.
+    line-length: 120
+    # Tab width in spaces.
+    # Default: 1
+    tab-width: 1
+  gci:
+    # Section configuration to compare against.
+    # Section names are case-insensitive and may contain parameters in ().
+    # The default order of sections is `standard > default > custom > blank > dot > alias > localmodule`,
+    # If `custom-order` is `true`, it follows the order of `sections` option.
+    # Default: ["standard", "default"]
+    sections:
+      - standard # Standard section: captures all standard packages.
+      - default # Default section: contains all imports that could not be matched to another section type.
+      - prefix(github.com/mirno/cicd-template.git) # Custom section: groups all imports with the specified Prefix.
+      - blank # Blank section: contains all blank imports. This section is not present unless explicitly enabled.
+      - dot # Dot section: contains all dot imports. This section is not present unless explicitly enabled.
+      - alias # Alias section: contains all alias imports. This section is not present unless explicitly enabled.
+      - localmodule # Local module section: contains all local packages. This section is not present unless explicitly enabled.
+    # Skip generated files.
+    # Default: true
+    skip-generated: false
+    # Enable custom order of sections.
+    # If `true`, make the section order the same as the order of `sections`.
+    # Default: false
+    custom-order: true
+    # Drops lexical ordering for custom sections.
+    # Default: false
+    no-lex-order: true
+issues:
+  max-issues-per-linter: 100
+  max-same-issues: 3

@@ -16,3 +16,5 @@ dist/
 
 # Ignore earthly ...
 .arg
+
+report.xml
