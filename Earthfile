@@ -41,11 +41,12 @@ docker:
     # WORKDIR /go-example
     ARG buildversion
     ARG registry
+    RUN apk add --no-cache curl
 
     COPY +build/go-example-$buildversion ./go-example
     COPY static ./static
     ENTRYPOINT ["./go-example"]
-    SAVE IMAGE --push $registry/earthly/examples:$buildversion
+    SAVE IMAGE --push $registry/earthly:$buildversion
 
 docker-test:
     FROM earthly/examples:go
