@@ -47,6 +47,8 @@ docker:
     COPY static ./static
     ENTRYPOINT ["./go-example"]
     SAVE IMAGE --push $registry/earthly:$buildversion
+    SAVE IMAGE --push $registry/earthly:latest
+
 
 docker-test:
     FROM earthly/examples:go
